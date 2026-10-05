@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10282b" />
+    <meta name="description" content="An accessible field map for learning cricket fielding positions by sight, voice, and repetition." />
+    <title>Cricket Field Learning Tool</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to learning area</a>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Learning context">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-mark__cross"></span>
+            <span class="brand-mark__dot"></span>
+          </div>
+          <div>
+            <p class="brand-name">FIELD / MAP</p>
+            <p class="brand-subtitle">cricket learning tool</p>
+          </div>
+        </div>
+
+        <div class="sidebar-note">
+          <p class="eyebrow">AUDIO + TEXT</p>
+          <p>Build the field in your head, one position at a time.</p>
+        </div>
+
+        <div class="session-rail" role="list" aria-label="Learning steps">
+          <div class="rail-step rail-step--active" data-rail="0" role="listitem">
+            <span class="rail-step__number">01</span>
+            <span class="rail-step__copy"><strong>Orient</strong><small>Find the pitch</small></span>
+          </div>
+          <div class="rail-step" data-rail="1" role="listitem">
+            <span class="rail-step__number">02</span>
+            <span class="rail-step__copy"><strong>Explore</strong><small>Walk the positions</small></span>
+          </div>
+          <div class="rail-step" data-rail="2" role="listitem">
+            <span class="rail-step__number">03</span>
+            <span class="rail-step__copy"><strong>Recall</strong><small>Try the quiz</small></span>
+          </div>
+        </div>
+
+        <div class="shortcut-card">
+          <p class="eyebrow">KEYBOARD SHORTCUTS</p>
+          <div class="shortcut-row"><kbd>←</kbd><kbd>→</kbd><span>move through guide</span></div>
+          <div class="shortcut-row"><kbd>R</kbd><span>replay audio</span></div>
+          <div class="shortcut-row"><kbd>M</kbd><span>mute / unmute</span></div>
+        </div>
+
+        <p class="sidebar-footer">Designed for cricket players who learn through listening, touch, and clear spatial language.</p>
+      </aside>
+
+      <main id="main-content" class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">SESSION 01 <span class="eyebrow-dot"></span> FIELD POSITIONS</p>
+            <p class="topbar-meta">No account needed · Learn at your pace</p>
+          </div>
+          <button id="speech-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Turn spoken feedback on">
+            <span class="icon-button__icon" aria-hidden="true">◖</span>
+            <span class="icon-button__label">Voice off</span>
+          </button>
+        </header>
+
+        <section class="intro-block" aria-labelledby="page-title">
+          <div class="intro-kicker"><span class="intro-kicker__line"></span><span>START WITH THE PITCH</span></div>
+          <h1 id="page-title">Know where<br /><em>the field starts.</em></h1>
+          <p class="intro-copy">Use the pitch as your anchor. Select a position on the map or let the coach guide you around the field.</p>
+        </section>
+
+        <section class="learning-layout" aria-label="Cricket field learning area">
+          <div class="field-column">
+            <div class="field-header">
+              <div>
+                <p class="section-label">THE FIELD MAP</p>
+                <p class="section-hint">Batter is at the bottom. Bowler is at the top.</p>
+              </div>
+              <span class="orientation-chip"><span class="orientation-chip__dot"></span>North = bowler</span>
+            </div>
+
+            <div class="field-map" aria-label="Interactive cricket field map">
+              <div class="field-map__outer-ring"></div>
+              <div class="field-map__inner-ring"></div>
+              <div class="field-map__orientation field-map__orientation--top"><span aria-hidden="true">↑</span> BOWLER</div>
+              <div class="field-map__orientation field-map__orientation--bottom">BATTER <span aria-hidden="true">↓</span></div>
+              <div class="field-map__pitch" aria-hidden="true">
+                <div class="pitch-line pitch-line--top"></div>
+                <div class="pitch-strip"><span>18.0 m</span></div>
+                <div class="pitch-line pitch-line--bottom"></div>
+              </div>
+              <div class="field-map__center-mark" aria-hidden="true"></div>
+              <div id="field-markers" class="field-markers" aria-label="Fielding positions"></div>
+              <div class="field-map__legend" aria-hidden="true"><span class="legend-key legend-key--active"></span><span>selected</span><span class="legend-key legend-key--other"></span><span>position</span></div>
+            </div>
+
+            <div class="position-list-header">
+              <div>
+                <p class="section-label">POSITION INDEX</p>
+                <p class="section-hint">Every label is a large, keyboard-friendly button.</p>
+              </div>
+              <span id="position-count" class="count-badge">13 positions</span>
+            </div>
+            <div id="position-list" class="position-list" aria-label="Text list of fielding positions"></div>
+          </div>
+
+          <aside class="coach-panel" aria-label="Learning coach">
+            <div class="coach-panel__topline"><span class="coach-status"><span class="coach-status__dot"></span><span id="coach-status-label">READY TO EXPLORE</span></span><span id="progress-label">1 / 13</span></div>
+            <div class="mode-tabs" role="tablist" aria-label="Learning mode">
+              <button id="guide-tab" class="mode-tab mode-tab--active" type="button" role="tab" aria-selected="true" aria-controls="guide-panel">GUIDE</button>
+              <button id="quiz-tab" class="mode-tab" type="button" role="tab" aria-selected="false" aria-controls="quiz-panel">QUIZ</button>
+            </div>
+
+            <section id="guide-panel" class="coach-panel__body" role="tabpanel" aria-labelledby="guide-tab">
+              <div class="coach-card coach-card--guide">
+                <p class="coach-card__eyebrow">POSITION <span id="position-number">01</span></p>
+                <h2 id="position-title">Wicket-keeper</h2>
+                <p id="position-description" class="coach-card__description">Behind the batter, directly in line with the stumps. The keeper receives the ball after it passes the batter.</p>
+                <div class="spatial-callout"><span class="spatial-callout__icon" aria-hidden="true">◎</span><div><p class="spatial-callout__label">SPATIAL CUE</p><p id="position-cue">Directly behind the batter, closest to the stumps.</p></div></div>
+                <button id="speak-button" class="speak-button" type="button"><span aria-hidden="true">◖</span><span id="speak-label">Read this position aloud</span><kbd>R</kbd></button>
+              </div>
+              <div class="coach-controls">
+                <button id="previous-button" class="secondary-button" type="button"><span aria-hidden="true">←</span> Previous</button>
+                <button id="next-button" class="primary-button" type="button">Next position <span aria-hidden="true">→</span></button>
+              </div>
+              <button id="exit-guide-button" class="text-button" type="button">Exit guide and explore freely</button>
+            </section>
+
+            <section id="quiz-panel" class="coach-panel__body" role="tabpanel" aria-labelledby="quiz-tab" hidden>
+              <div class="coach-card coach-card--quiz">
+                <p class="coach-card__eyebrow">CHECK YOUR MAP <span id="quiz-number">01</span></p>
+                <h2 id="quiz-question">Which position is directly behind the batter?</h2>
+                <p class="coach-card__description">Choose the best answer. You’ll get a clear cue after every try.</p>
+                <div id="quiz-options" class="quiz-options" role="group" aria-label="Quiz answers"></div>
+                <div id="quiz-feedback" class="quiz-feedback" role="status" aria-live="polite" hidden></div>
+                <button id="quiz-speak-button" class="speak-button speak-button--light" type="button" hidden><span aria-hidden="true">◖</span><span>Replay quiz feedback</span><kbd>R</kbd></button>
+              </div>
+              <div class="coach-controls"><button id="next-quiz-button" class="primary-button" type="button" hidden>Next question <span aria-hidden="true">→</span></button><button id="restart-quiz-button" class="secondary-button" type="button">Restart quiz</button></div>
+              <button id="return-guide-button" class="text-button" type="button">Return to guided learning</button>
+            </section>
+
+            <div class="coach-tip"><span class="coach-tip__mark" aria-hidden="true">i</span><p><strong>Learning tip</strong><br />Say the position name, then imagine the pitch as your clock face.</p></div>
+          </aside>
+        </section>
+
+        <div class="sr-only" id="live-region" aria-live="polite" aria-atomic="true"></div>
+      </main>
+    </div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
