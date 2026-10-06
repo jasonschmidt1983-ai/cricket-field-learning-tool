@@ -18,7 +18,7 @@ const formats = {
   conventional: {
     label: 'Conventional cricket',
     help: 'Standard field markings',
-    hint: 'Standard layout. Batter is at the bottom. Bowler is at the top.',
+    hint: 'Standard layout. Close positions sit inside the 30-yard circle; deep positions sit outside it. Batter is at the bottom.',
     chip: '30 yd inner circle',
     pitch: '27.43 m',
     announcement: 'Conventional cricket selected. Standard field markings are shown.'
@@ -109,8 +109,8 @@ function setFormat(format, shouldSpeak = true) {
 }
 
 const conventionalLayout = [
-  [50, 86], [60, 78], [70, 69], [80, 54], [70, 37], [58, 27], [42, 27],
-  [30, 37], [20, 54], [30, 69], [40, 82], [60, 82], [80, 76]
+  [50, 86], [59, 76], [70, 67], [80, 54], [69, 41], [57, 31], [43, 31],
+  [31, 41], [20, 54], [12, 72], [38, 16], [62, 16], [88, 72]
 ];
 
 function fieldPosition(position, index) {
