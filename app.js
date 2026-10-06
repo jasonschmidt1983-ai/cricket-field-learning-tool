@@ -14,7 +14,26 @@ const positions = [
   { name: 'Third man', short: 'THIRD MAN', x: 86, y: 83, description: 'Deep behind square on the off side, near the boundary. Third man covers edges behind the batter.', cue: 'Wide behind the batter’s right shoulder, near the boundary.' }
 ];
 
-const state = { selected: 0, mode: 'guide', speech: false, quizIndex: 0, quizAnswered: false, score: 0 };
+const formats = {
+  conventional: {
+    label: 'Conventional cricket',
+    help: 'Standard field markings',
+    hint: 'Standard layout. Batter is at the bottom. Bowler is at the top.',
+    chip: '30 yd inner circle',
+    pitch: '27.43 m',
+    announcement: 'Conventional cricket selected. Standard field markings are shown.'
+  },
+  blind: {
+    label: 'Blind cricket · NCIC',
+    help: 'NCIC BLV field markings',
+    hint: 'NCIC BLV layout. Batter is at the bottom. Bowler is at the top.',
+    chip: '18 m inner circle · B1 ring 4.5 m',
+    pitch: '18.0 m',
+    announcement: 'Blind cricket selected. The 18 metre inner circle and 4.5 metre B1 scoring rings are shown.'
+  }
+};
+
+const state = { selected: 0, mode: 'guide', format: 'blind', speech: false, quizIndex: 0, quizAnswered: false, score: 0 };
 const els = {
   markers: document.querySelector('#field-markers'),
   list: document.querySelector('#position-list'),
@@ -41,7 +60,14 @@ const els = {
   quizSpeak: document.querySelector('#quiz-speak-button'),
   nextQuiz: document.querySelector('#next-quiz-button'),
   restartQuiz: document.querySelector('#restart-quiz-button'),
-  coachStatus: document.querySelector('#coach-status-label')
+  coachStatus: document.querySelector('#coach-status-label'),
+  fieldMap: document.querySelector('.field-map'),
+  fieldHint: document.querySelector('#field-hint'),
+  formatChip: document.querySelector('#format-chip'),
+  formatHelp: document.querySelector('#format-help'),
+  pitchMeasure: document.querySelector('#pitch-measure'),
+  conventionalFormat: document.querySelector('#conventional-format'),
+  blindFormat: document.querySelector('#blind-format')
 };
 
 function announce(message) {
@@ -61,6 +87,24 @@ function speak(text) {
 function positionText(index) {
   const p = positions[index];
   return `${p.name}. ${p.description} Spatial cue: ${p.cue}`;
+}
+
+function setFormat(format, shouldSpeak = true) {
+  const detail = formats[format];
+  if (!detail) return;
+  state.format = format;
+  const isBlind = format === 'blind';
+  els.fieldMap.classList.toggle('field-map--blind', isBlind);
+  els.fieldMap.classList.toggle('field-map--conventional', !isBlind);
+  els.conventionalFormat.classList.toggle('format-option--active', !isBlind);
+  els.blindFormat.classList.toggle('format-option--active', isBlind);
+  els.conventionalFormat.setAttribute('aria-checked', String(!isBlind));
+  els.blindFormat.setAttribute('aria-checked', String(isBlind));
+  els.fieldHint.textContent = detail.hint;
+  els.formatChip.innerHTML = `<span class="format-chip__dot"></span>${detail.chip}`;
+  els.formatHelp.textContent = detail.help;
+  els.pitchMeasure.textContent = detail.pitch;
+  if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
 function renderMarkers() {
@@ -217,6 +261,8 @@ els.quizTab.addEventListener('click', () => setMode('quiz'));
 els.nextQuiz.addEventListener('click', nextQuiz);
 els.quizSpeak.addEventListener('click', () => { const message = els.quizFeedback.hidden ? `You finished the field check with ${state.score} out of ${positions.length} correct.` : els.quizFeedback.textContent; speak(message); announce(message); });
 els.restartQuiz.addEventListener('click', () => { state.quizIndex = 0; state.score = 0; renderQuiz(); announce('Quiz restarted.'); });
+els.conventionalFormat.addEventListener('click', () => setFormat('conventional'));
+els.blindFormat.addEventListener('click', () => setFormat('blind'));
 document.querySelector('#exit-guide-button').addEventListener('click', () => { setMode('explore'); window.requestAnimationFrame(() => document.querySelector('.field-marker--active')?.focus()); });
 document.querySelector('#return-guide-button').addEventListener('click', () => setMode('guide'));
 
@@ -229,10 +275,19 @@ function handleTabKeydown(event) {
 }
 els.guideTab.addEventListener('keydown', handleTabKeydown);
 els.quizTab.addEventListener('keydown', handleTabKeydown);
+function handleFormatKeydown(event) {
+  if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+  event.preventDefault();
+  const target = event.key === 'Home' || event.key === 'ArrowLeft' ? els.conventionalFormat : els.blindFormat;
+  target.focus();
+  setFormat(target === els.blindFormat ? 'blind' : 'conventional');
+}
+els.conventionalFormat.addEventListener('keydown', handleFormatKeydown);
+els.blindFormat.addEventListener('keydown', handleFormatKeydown);
 document.addEventListener('keydown', (event) => {
   const tag = document.activeElement?.tagName;
   if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
-  if (document.activeElement?.getAttribute('role') === 'tab') return;
+  if (['tab', 'radio'].includes(document.activeElement?.getAttribute('role'))) return;
   if (event.key === 'ArrowRight' && state.mode === 'guide') { event.preventDefault(); selectPosition(state.selected + 1, true); }
   if (event.key === 'ArrowLeft' && state.mode === 'guide') { event.preventDefault(); selectPosition(state.selected - 1, true); }
   if (event.key.toLowerCase() === 'r') { event.preventDefault(); const message = state.mode === 'guide' ? positionText(state.selected) : state.mode === 'quiz' ? (els.quizFeedback.hidden ? els.quizQuestion.textContent : els.quizFeedback.textContent) : positionText(state.selected); speak(message); announce(message); }
@@ -241,4 +296,5 @@ document.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() === 'q') { event.preventDefault(); setMode('quiz'); }
 });
 
+setFormat('blind', false);
 updateGuide();

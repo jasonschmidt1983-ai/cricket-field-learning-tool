@@ -59,6 +59,14 @@
             <p class="eyebrow">SESSION 01 <span class="eyebrow-dot"></span> FIELD POSITIONS</p>
             <p class="topbar-meta">No account needed · Learn at your pace</p>
           </div>
+          <div class="format-control">
+            <p class="format-control__label">FIELD FORMAT</p>
+            <div class="format-switch" role="radiogroup" aria-label="Choose cricket format">
+              <button id="conventional-format" class="format-option" type="button" role="radio" aria-checked="false">Conventional</button>
+              <button id="blind-format" class="format-option format-option--active" type="button" role="radio" aria-checked="true">Blind / NCIC</button>
+            </div>
+            <p id="format-help" class="format-help">NCIC BLV field markings</p>
+          </div>
           <button id="speech-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Turn spoken feedback on">
             <span class="icon-button__icon" aria-hidden="true">◖</span>
             <span class="icon-button__label">Voice off</span>
@@ -76,19 +84,24 @@
             <div class="field-header">
               <div>
                 <p class="section-label">THE FIELD MAP</p>
-                <p class="section-hint">Batter is at the bottom. Bowler is at the top.</p>
+                <p id="field-hint" class="section-hint">NCIC BLV layout. Batter is at the bottom. Bowler is at the top.</p>
               </div>
-              <span class="orientation-chip"><span class="orientation-chip__dot"></span>North = bowler</span>
+              <div class="field-header__chips">
+                <span id="format-chip" class="format-chip"><span class="format-chip__dot"></span>18 m inner circle · B1 ring 4.5 m</span>
+                <span class="orientation-chip"><span class="orientation-chip__dot"></span>North = bowler</span>
+              </div>
             </div>
 
             <div class="field-map" aria-label="Interactive cricket field map">
               <div class="field-map__outer-ring"></div>
               <div class="field-map__inner-ring"></div>
+              <div class="field-map__scoring-ring field-map__scoring-ring--top" aria-hidden="true"></div>
+              <div class="field-map__scoring-ring field-map__scoring-ring--bottom" aria-hidden="true"></div>
               <div class="field-map__orientation field-map__orientation--top"><span aria-hidden="true">↑</span> BOWLER</div>
               <div class="field-map__orientation field-map__orientation--bottom">BATTER <span aria-hidden="true">↓</span></div>
               <div class="field-map__pitch" aria-hidden="true">
                 <div class="pitch-line pitch-line--top"></div>
-                <div class="pitch-strip"><span>18.0 m</span></div>
+                <div class="pitch-strip"><span id="pitch-measure">18.0 m</span></div>
                 <div class="pitch-line pitch-line--bottom"></div>
               </div>
               <div class="field-map__center-mark" aria-hidden="true"></div>
