@@ -18,7 +18,7 @@ const formats = {
   conventional: {
     label: 'Conventional cricket',
     help: 'Standard field markings',
-    hint: 'Circular field layout. The batter is the centre anchor, the keeper is directly behind, and the bowler is down the pitch.',
+    hint: 'Circular field layout for a right-handed batter. Keeper and batter are north; bowler is south.',
     chip: '30 yd inner circle',
     pitch: '27.43 m',
     announcement: 'Conventional cricket selected. Standard field markings are shown.'
@@ -26,7 +26,7 @@ const formats = {
   blind: {
     label: 'Blind cricket · NCIC',
     help: 'NCIC BLV field markings',
-    hint: 'NCIC BLV layout. Batter is at the bottom. Bowler is at the top.',
+    hint: 'Circular NCIC BLV layout. Keeper and batter are north; bowler is south.',
     chip: '18 m inner circle · B1 ring 4.5 m',
     pitch: '18.0 m',
     announcement: 'Blind cricket selected. The 18 metre inner circle and 4.5 metre B1 scoring rings are shown.'
@@ -107,21 +107,21 @@ function setFormat(format, shouldSpeak = true) {
   els.formatChip.innerHTML = `<span class="format-chip__dot"></span>${detail.chip}`;
   els.formatHelp.textContent = detail.help;
   els.pitchMeasure.textContent = detail.pitch;
-  els.orientationTop.innerHTML = isBlind ? '<span aria-hidden="true">↑</span> BOWLER' : 'BATTER';
-  els.orientationBottom.innerHTML = isBlind ? 'BATTER <span aria-hidden="true">↓</span>' : 'BOWLER';
-  els.orientationChip.innerHTML = `<span class="orientation-chip__dot"></span>${isBlind ? 'North = bowler' : 'Batter centre · bowler below'}`;
+  els.orientationTop.innerHTML = '<span aria-hidden="true">↑</span> KEEPER · BATTER';
+  els.orientationBottom.innerHTML = 'BOWLER <span aria-hidden="true">↓</span>';
+  els.orientationChip.innerHTML = '<span class="orientation-chip__dot"></span>North = keeper · batter';
   renderMarkers();
   if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
 const conventionalLayout = [
-  [50, 28], [45, 32], [36, 38], [18, 50], [32, 63], [43, 74], [59, 74],
-  [68, 63], [82, 50], [84, 20], [66, 84], [34, 84], [16, 20]
+  [50, 20], [41, 26], [31, 34], [18, 47], [27, 61], [38, 75], [62, 75],
+  [73, 61], [82, 47], [86, 18], [67, 87], [33, 87], [14, 18]
 ];
 
 const blindLayout = [
-  [50, 85], [59, 75], [69, 66], [82, 52], [69, 37], [58, 27], [42, 27],
-  [31, 37], [18, 52], [31, 66], [28, 17], [72, 17], [82, 73]
+  [50, 20], [41, 27], [31, 35], [18, 49], [28, 62], [39, 76], [61, 76],
+  [72, 62], [82, 49], [86, 20], [67, 87], [33, 87], [14, 20]
 ];
 
 function fieldPosition(position, index) {
@@ -135,7 +135,7 @@ function renderMarkers() {
     const layoutPosition = fieldPosition(position, index);
     return `
     <button class="field-marker ${index === state.selected ? 'field-marker--active' : ''}" style="left:${layoutPosition.x}%;top:${layoutPosition.y}%" type="button" data-position="${index}" aria-label="${position.name}: ${position.cue}" aria-pressed="${index === state.selected}">
-      <span class="field-marker__short">${position.short}</span>${position.name}
+      <span class="field-marker__dot" aria-hidden="true"></span><span class="field-marker__label">${position.name}</span>
     </button>`;
   }).join('');
   els.markers.querySelectorAll('[data-position]').forEach((button) => button.addEventListener('click', () => selectPosition(Number(button.dataset.position), true)));
