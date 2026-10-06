@@ -89,7 +89,7 @@ h1 em { font-style: normal; color: var(--teal-deep); }
 .field-map__outer-ring, .field-map__inner-ring { position: absolute; border: 1px solid rgba(16,40,43,.2); border-radius: 50%; left: 50%; transform: translateX(-50%); }
 .field-map__outer-ring { width: 94%; height: 74%; top: 13%; }
 .field-map__inner-ring { width: 72%; height: 51%; top: 24.5%; border-style: dashed; border-color: rgba(16,40,43,.18); }
-.field-map--conventional .field-map__inner-ring { width: 88%; height: 68%; top: 16%; border-style: solid; border-color: rgba(16,40,43,.22); }
+.field-map--conventional .field-map__inner-ring { width: 78%; height: 58%; top: 21%; border-style: dashed; border-color: rgba(16,40,43,.28); }
 .field-map__scoring-ring { position: absolute; z-index: 2; width: 28%; height: 17%; left: 50%; transform: translateX(-50%); border: 3px dotted #226f92; border-radius: 50%; }
 .field-map__scoring-ring--top { top: 11%; }
 .field-map__scoring-ring--bottom { bottom: 11%; }
@@ -108,6 +108,8 @@ h1 em { font-style: normal; color: var(--teal-deep); }
 .field-marker { position: absolute; transform: translate(-50%, -50%); border: 2px solid rgba(16,40,43,.28); background: rgba(255,254,250,.9); color: var(--ink); border-radius: 99px; padding: 8px 10px; min-height: 46px; min-width: 58px; cursor: pointer; font-size: 10px; line-height: 1.1; font-weight: 700; box-shadow: 0 4px 10px rgba(16,40,43,.09); transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
 .field-marker:hover { transform: translate(-50%, -54%); border-color: var(--teal-deep); }
 .field-marker--active { background: var(--ink); color: var(--paper-strong); border-color: var(--teal); box-shadow: 0 0 0 5px rgba(22,198,180,.17), 0 8px 15px rgba(16,40,43,.16); }
+.field-map--conventional .field-marker { min-width: 54px; padding: 7px 8px; font-size: 9px; }
+.field-map--conventional .field-marker__short { font-size: 7px; }
 .field-marker__short { display: block; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: .04em; color: var(--teal-deep); margin-bottom: 3px; }
 .field-marker--active .field-marker__short { color: var(--teal); }
 .field-map__legend { position: absolute; z-index: 4; left: 16px; bottom: 14px; display: flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(16,40,43,.7); }

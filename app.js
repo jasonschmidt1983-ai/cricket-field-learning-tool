@@ -104,14 +104,29 @@ function setFormat(format, shouldSpeak = true) {
   els.formatChip.innerHTML = `<span class="format-chip__dot"></span>${detail.chip}`;
   els.formatHelp.textContent = detail.help;
   els.pitchMeasure.textContent = detail.pitch;
+  renderMarkers();
   if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
+const conventionalLayout = [
+  [50, 86], [60, 78], [70, 69], [80, 54], [70, 37], [58, 27], [42, 27],
+  [30, 37], [20, 54], [30, 69], [40, 82], [60, 82], [80, 76]
+];
+
+function fieldPosition(position, index) {
+  if (state.format !== 'conventional') return position;
+  const [x, y] = conventionalLayout[index];
+  return { ...position, x, y };
+}
+
 function renderMarkers() {
-  els.markers.innerHTML = positions.map((position, index) => `
-    <button class="field-marker ${index === state.selected ? 'field-marker--active' : ''}" style="left:${position.x}%;top:${position.y}%" type="button" data-position="${index}" aria-label="${position.name}: ${position.cue}" aria-pressed="${index === state.selected}">
+  els.markers.innerHTML = positions.map((position, index) => {
+    const layoutPosition = fieldPosition(position, index);
+    return `
+    <button class="field-marker ${index === state.selected ? 'field-marker--active' : ''}" style="left:${layoutPosition.x}%;top:${layoutPosition.y}%" type="button" data-position="${index}" aria-label="${position.name}: ${position.cue}" aria-pressed="${index === state.selected}">
       <span class="field-marker__short">${position.short}</span>${position.name}
-    </button>`).join('');
+    </button>`;
+  }).join('');
   els.markers.querySelectorAll('[data-position]').forEach((button) => button.addEventListener('click', () => selectPosition(Number(button.dataset.position), true)));
 }
 
