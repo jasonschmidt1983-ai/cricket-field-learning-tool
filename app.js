@@ -18,7 +18,7 @@ const formats = {
   conventional: {
     label: 'Conventional cricket',
     help: 'Standard field markings',
-    hint: 'Diagram layout. Batter is the central anchor; close catching positions cluster around the bat, with deep positions around the boundary.',
+    hint: 'Circular field layout. The batter is the centre anchor, the keeper is directly behind, and the bowler is down the pitch.',
     chip: '30 yd inner circle',
     pitch: '27.43 m',
     announcement: 'Conventional cricket selected. Standard field markings are shown.'
@@ -69,7 +69,8 @@ const els = {
   conventionalFormat: document.querySelector('#conventional-format'),
   blindFormat: document.querySelector('#blind-format'),
   orientationTop: document.querySelector('#orientation-top'),
-  orientationBottom: document.querySelector('#orientation-bottom')
+  orientationBottom: document.querySelector('#orientation-bottom'),
+  orientationChip: document.querySelector('#orientation-chip')
 };
 
 function announce(message) {
@@ -108,13 +109,14 @@ function setFormat(format, shouldSpeak = true) {
   els.pitchMeasure.textContent = detail.pitch;
   els.orientationTop.innerHTML = isBlind ? '<span aria-hidden="true">↑</span> BOWLER' : 'BATTER';
   els.orientationBottom.innerHTML = isBlind ? 'BATTER <span aria-hidden="true">↓</span>' : 'BOWLER';
+  els.orientationChip.innerHTML = `<span class="orientation-chip__dot"></span>${isBlind ? 'North = bowler' : 'Batter centre · bowler below'}`;
   renderMarkers();
   if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
 const conventionalLayout = [
-  [50, 46], [43, 38], [34, 42], [18, 50], [31, 61], [43, 70], [60, 70],
-  [69, 61], [82, 50], [84, 23], [67, 88], [34, 88], [16, 23]
+  [50, 27], [43, 31], [34, 39], [17, 50], [31, 64], [43, 76], [60, 76],
+  [69, 64], [83, 50], [88, 20], [68, 89], [32, 89], [12, 20]
 ];
 
 function fieldPosition(position, index) {
