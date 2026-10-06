@@ -115,13 +115,18 @@ function setFormat(format, shouldSpeak = true) {
 }
 
 const conventionalLayout = [
-  [50, 27], [43, 31], [34, 39], [17, 50], [31, 64], [43, 76], [60, 76],
-  [69, 64], [83, 50], [88, 20], [68, 89], [32, 89], [12, 20]
+  [50, 28], [45, 32], [36, 38], [18, 50], [32, 63], [43, 74], [59, 74],
+  [68, 63], [82, 50], [84, 20], [66, 84], [34, 84], [16, 20]
+];
+
+const blindLayout = [
+  [50, 85], [59, 75], [69, 66], [82, 52], [69, 37], [58, 27], [42, 27],
+  [31, 37], [18, 52], [31, 66], [28, 17], [72, 17], [82, 73]
 ];
 
 function fieldPosition(position, index) {
-  if (state.format !== 'conventional') return position;
-  const [x, y] = conventionalLayout[index];
+  const layout = state.format === 'conventional' ? conventionalLayout : blindLayout;
+  const [x, y] = layout[index];
   return { ...position, x, y };
 }
 
