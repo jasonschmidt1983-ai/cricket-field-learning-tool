@@ -1,25 +1,38 @@
-const positions = [
-  { name: 'Wicket-keeper', short: 'KEEPER', x: 49.6, y: 35.6, description: 'Behind the batter, directly in line with the stumps. The keeper receives the ball after it passes the batter.', cue: 'Directly behind the batter, at the north end of the pitch.' },
-  { name: 'Slip', short: 'SLIP', x: 43.3, y: 34.5, description: 'A close catching position just to the off side of the wicket-keeper, angled behind the batter.', cue: 'Just left of the keeper, close to the north stumps.' },
-  { name: 'Gully', short: 'GULLY', x: 40.4, y: 37, description: 'A catching position wider than slip on the off side, between slip and point.', cue: 'Left of slip, slightly wider and lower.' },
-  { name: 'Third man', short: 'THIRD MAN', x: 31.5, y: 21.5, description: 'Deep behind square on the off side, near the boundary. Third man covers edges behind the batter.', cue: 'Deep upper-left on the off side.' },
-  { name: 'Fine leg', short: 'FINE LEG', x: 65, y: 18.5, description: 'Deep behind square on the leg side, near the boundary.', cue: 'Deep upper-right on the leg side.' },
-  { name: 'Square leg', short: 'SQUARE LEG', x: 66.8, y: 40.7, description: 'On the leg side, square to the batter.', cue: 'Right of the batter, level with the pitch.' },
-  { name: 'Point', short: 'POINT', x: 35.8, y: 40.9, description: 'On the off side, square to the batter.', cue: 'Left of the batter, level with the pitch.' },
-  { name: 'Cover', short: 'COVER', x: 34.1, y: 48.2, description: 'On the off side, in front of square.', cue: 'Left of the pitch, below point.' },
-  { name: 'Extra Cover', short: 'EXTRA COVER', x: 35.2, y: 55.5, description: 'On the off side between cover and mid-off.', cue: 'Left of the pitch, below cover.' },
-  { name: 'Mid-off', short: 'MID-OFF', x: 40.6, y: 62.7, description: 'On the off side, closer to the bowler than extra cover.', cue: 'Lower-left, between extra cover and the bowler.' },
-  { name: 'Long-off', short: 'LONG-OFF', x: 40.4, y: 88.7, description: 'Deep on the off side, near the boundary.', cue: 'Deep lower-left on the off side.' },
-  { name: 'Mid-wicket', short: 'MID-WICKET', x: 66.3, y: 48.5, description: 'On the leg side, in front of square.', cue: 'Right of the pitch, below square leg.' },
-  { name: 'Mid-on', short: 'MID-ON', x: 63, y: 59.7, description: 'On the leg side, closer to the bowler than mid-wicket.', cue: 'Lower-right, between mid-wicket and the bowler.' },
-  { name: 'Long-on', short: 'LONG-ON', x: 59.7, y: 88.7, description: 'Deep on the leg side, near the boundary.', cue: 'Deep lower-right on the leg side.' }
+const referencePositions = [
+  ['Bowler', 0, 22], ['Wicket-keeper', 0, -38], ['Slip', 12, -34], ['Gully', 26, -22],
+  ['Point', 38, -5], ['Cover', 32, 20], ['Extra Cover', 22, 38], ['Mid-off', 12, 48],
+  ['Mid-on', -12, 48], ['Mid-wicket', -32, 18], ['Square Leg', -38, -5], ['Fine Leg', -30, -85],
+  ['Third Man', 35, -80], ['Long Off', 20, 90], ['Long On', -20, 90]
 ];
+
+const descriptions = {
+  Bowler: ['At the north end of the pitch.', 'North, at the top of the pitch.'],
+  'Wicket-keeper': ['Behind the batter, directly in line with the stumps.', 'South of the pitch, directly behind the batter.'],
+  Slip: ['A close catching position on the off side of the wicket-keeper.', 'East of the keeper, close to the stumps.'],
+  Gully: ['A catching position wider than slip on the off side.', 'East of slip, wider and slightly north.'],
+  Point: ['On the off side, square to the batter.', 'East of the pitch, level with the batter.'],
+  Cover: ['On the off side, in front of square.', 'East of the pitch, north of point.'],
+  'Extra Cover': ['On the off side between cover and mid-off.', 'East of the pitch, north of cover.'],
+  'Mid-off': ['On the off side, closer to the bowler than extra cover.', 'East of the pitch, north of extra cover.'],
+  'Mid-on': ['On the leg side, opposite mid-off.', 'West of the pitch, north of extra cover.'],
+  'Mid-wicket': ['On the leg side, in front of square.', 'West of the pitch, north of square leg.'],
+  'Square Leg': ['On the leg side, square to the batter.', 'West of the pitch, level with the batter.'],
+  'Fine Leg': ['Deep behind square on the leg side.', 'West and deep behind the batter.'],
+  'Third Man': ['Deep behind square on the off side.', 'East and deep behind the batter.'],
+  'Long Off': ['Deep on the off side near the boundary.', 'East and deep in front of the batter.'],
+  'Long On': ['Deep on the leg side near the boundary.', 'West and deep in front of the batter.']
+};
+
+const positions = referencePositions.map(([name, x, y]) => {
+  const [description, cue] = descriptions[name];
+  return { name, short: name.toUpperCase(), x: 50 + x * 0.9, y: 50 - y * 0.42, description, cue };
+});
 
 const formats = {
   conventional: {
     label: 'Conventional cricket',
     help: 'Standard field markings',
-    hint: 'Circular field layout for a right-handed batter. Keeper and batter are north; bowler is south.',
+    hint: 'Live field axis: north is bowler, south is batter, east is off side, west is leg side.',
     chip: '30 yd inner circle',
     pitch: '27.43 m',
     announcement: 'Conventional cricket selected. Standard field markings are shown.'
@@ -27,7 +40,7 @@ const formats = {
   blind: {
     label: 'Blind cricket · NCIC',
     help: 'NCIC BLV field markings',
-    hint: 'Circular NCIC BLV layout. Keeper and batter are north; bowler is south.',
+    hint: 'Live field axis: north is bowler, south is batter, east is off side, west is leg side.',
     chip: '18 m inner circle · B1 ring 4.5 m',
     pitch: '18.0 m',
     announcement: 'Blind cricket selected. The 18 metre inner circle and 4.5 metre B1 scoring rings are shown.'
@@ -108,20 +121,16 @@ function setFormat(format, shouldSpeak = true) {
   els.formatChip.innerHTML = `<span class="format-chip__dot"></span>${detail.chip}`;
   els.formatHelp.textContent = detail.help;
   els.pitchMeasure.textContent = detail.pitch;
-  els.orientationTop.innerHTML = '<span aria-hidden="true">↑</span> KEEPER · BATTER';
-  els.orientationBottom.innerHTML = 'BOWLER <span aria-hidden="true">↓</span>';
-  els.orientationChip.innerHTML = '<span class="orientation-chip__dot"></span>North = keeper · batter';
+  els.orientationTop.innerHTML = '<span aria-hidden="true">↑</span> BOWLER · NORTH';
+  els.orientationBottom.innerHTML = 'BATTER · SOUTH <span aria-hidden="true">↓</span>';
+  els.orientationChip.innerHTML = '<span class="orientation-chip__dot"></span>North = bowler · east = off side';
   renderMarkers();
   if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
-function fieldPosition(position, index) {
-  return position;
-}
-
 function renderMarkers() {
   els.markers.innerHTML = positions.map((position, index) => {
-    const layoutPosition = fieldPosition(position, index);
+    const layoutPosition = position;
     return `
     <button class="field-marker ${index === state.selected ? 'field-marker--active' : ''}" style="left:${layoutPosition.x}%;top:${layoutPosition.y}%" type="button" data-position="${index}" aria-label="${position.name}: ${position.cue}" aria-pressed="${index === state.selected}">
       <span class="field-marker__dot" aria-hidden="true"></span><span class="field-marker__label">${position.name}</span>
