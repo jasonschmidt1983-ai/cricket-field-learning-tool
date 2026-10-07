@@ -1,17 +1,18 @@
 const positions = [
-  { name: 'Wicket-keeper', short: 'KEEPER', x: 50, y: 88, description: 'Behind the batter, directly in line with the stumps. The keeper receives the ball after it passes the batter.', cue: 'Directly behind the batter, closest to the stumps.' },
-  { name: 'Slip', short: 'SLIP', x: 73, y: 84, description: 'A close catching position just to the off side of the wicket-keeper, angled behind the batter.', cue: 'Behind and to the batter’s right, close to the wicket.' },
-  { name: 'Gully', short: 'GULLY', x: 82, y: 68, description: 'A catching position wider than slip on the off side, between slip and point.', cue: 'Wide behind the batter’s right shoulder.' },
-  { name: 'Point', short: 'POINT', x: 91, y: 50, description: 'On the off side, square to the batter. Point watches the area level with the popping crease.', cue: 'To the batter’s right, level with the pitch.' },
-  { name: 'Cover', short: 'COVER', x: 78, y: 33, description: 'On the off side, in front of square. Cover protects the open space between point and mid-off.', cue: 'In front of the batter’s right, between point and mid-off.' },
-  { name: 'Mid-off', short: 'MID-OFF', x: 62, y: 22, description: 'On the off side, closer to the bowler than cover. Mid-off is a forward, stopping position.', cue: 'In front of the batter’s right, nearer the bowler.' },
-  { name: 'Mid-on', short: 'MID-ON', x: 38, y: 22, description: 'On the on side, opposite mid-off. Mid-on guards the straight drive on the batter’s left.', cue: 'In front of the batter’s left, nearer the bowler.' },
-  { name: 'Midwicket', short: 'MIDWICKET', x: 22, y: 33, description: 'On the on side, in front of square. Midwicket covers the angled space between mid-on and square leg.', cue: 'In front of the batter’s left, between mid-on and square leg.' },
-  { name: 'Square leg', short: 'SQUARE LEG', x: 9, y: 50, description: 'On the on side, square to the batter. Square leg watches the area level with the popping crease.', cue: 'To the batter’s left, level with the pitch.' },
-  { name: 'Fine leg', short: 'FINE LEG', x: 18, y: 68, description: 'Behind square on the on side, near the boundary. Fine leg sits behind the batter’s left shoulder.', cue: 'Wide behind the batter’s left shoulder.' },
-  { name: 'Long on', short: 'LONG ON', x: 37, y: 80, description: 'Deep on the on side, roughly straight in front of the batter’s left, near the boundary.', cue: 'Deep and in front of the batter’s left.' },
-  { name: 'Long off', short: 'LONG OFF', x: 68, y: 73, description: 'Deep on the off side, roughly straight in front of the batter’s right, near the boundary.', cue: 'Deep and in front of the batter’s right.' },
-  { name: 'Third man', short: 'THIRD MAN', x: 86, y: 83, description: 'Deep behind square on the off side, near the boundary. Third man covers edges behind the batter.', cue: 'Wide behind the batter’s right shoulder, near the boundary.' }
+  { name: 'Wicket-keeper', short: 'KEEPER', x: 49.6, y: 35.6, description: 'Behind the batter, directly in line with the stumps. The keeper receives the ball after it passes the batter.', cue: 'Directly behind the batter, at the north end of the pitch.' },
+  { name: 'Slip', short: 'SLIP', x: 43.3, y: 34.5, description: 'A close catching position just to the off side of the wicket-keeper, angled behind the batter.', cue: 'Just left of the keeper, close to the north stumps.' },
+  { name: 'Gully', short: 'GULLY', x: 40.4, y: 37, description: 'A catching position wider than slip on the off side, between slip and point.', cue: 'Left of slip, slightly wider and lower.' },
+  { name: 'Third man', short: 'THIRD MAN', x: 31.5, y: 21.5, description: 'Deep behind square on the off side, near the boundary. Third man covers edges behind the batter.', cue: 'Deep upper-left on the off side.' },
+  { name: 'Fine leg', short: 'FINE LEG', x: 65, y: 18.5, description: 'Deep behind square on the leg side, near the boundary.', cue: 'Deep upper-right on the leg side.' },
+  { name: 'Square leg', short: 'SQUARE LEG', x: 66.8, y: 40.7, description: 'On the leg side, square to the batter.', cue: 'Right of the batter, level with the pitch.' },
+  { name: 'Point', short: 'POINT', x: 35.8, y: 40.9, description: 'On the off side, square to the batter.', cue: 'Left of the batter, level with the pitch.' },
+  { name: 'Cover', short: 'COVER', x: 34.1, y: 48.2, description: 'On the off side, in front of square.', cue: 'Left of the pitch, below point.' },
+  { name: 'Extra Cover', short: 'EXTRA COVER', x: 35.2, y: 55.5, description: 'On the off side between cover and mid-off.', cue: 'Left of the pitch, below cover.' },
+  { name: 'Mid-off', short: 'MID-OFF', x: 40.6, y: 62.7, description: 'On the off side, closer to the bowler than extra cover.', cue: 'Lower-left, between extra cover and the bowler.' },
+  { name: 'Long-off', short: 'LONG-OFF', x: 40.4, y: 88.7, description: 'Deep on the off side, near the boundary.', cue: 'Deep lower-left on the off side.' },
+  { name: 'Mid-wicket', short: 'MID-WICKET', x: 66.3, y: 48.5, description: 'On the leg side, in front of square.', cue: 'Right of the pitch, below square leg.' },
+  { name: 'Mid-on', short: 'MID-ON', x: 63, y: 59.7, description: 'On the leg side, closer to the bowler than mid-wicket.', cue: 'Lower-right, between mid-wicket and the bowler.' },
+  { name: 'Long-on', short: 'LONG-ON', x: 59.7, y: 88.7, description: 'Deep on the leg side, near the boundary.', cue: 'Deep lower-right on the leg side.' }
 ];
 
 const formats = {
@@ -114,20 +115,8 @@ function setFormat(format, shouldSpeak = true) {
   if (shouldSpeak) { announce(detail.announcement); speak(detail.announcement); }
 }
 
-const conventionalLayout = [
-  [50, 20], [41, 26], [31, 34], [18, 47], [27, 61], [38, 75], [62, 75],
-  [73, 61], [82, 47], [78, 20], [64, 85], [36, 85], [22, 20]
-];
-
-const blindLayout = [
-  [50, 20], [41, 27], [31, 35], [18, 49], [28, 62], [39, 76], [61, 76],
-  [72, 62], [82, 49], [78, 20], [64, 85], [36, 85], [22, 20]
-];
-
 function fieldPosition(position, index) {
-  const layout = state.format === 'conventional' ? conventionalLayout : blindLayout;
-  const [x, y] = layout[index];
-  return { ...position, x, y };
+  return position;
 }
 
 function renderMarkers() {

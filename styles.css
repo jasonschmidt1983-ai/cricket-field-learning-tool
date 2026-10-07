@@ -108,8 +108,7 @@ h1 em { font-style: normal; color: var(--teal-deep); }
 .field-map--conventional .field-map__orientation--bottom { bottom: 14px; }
 .field-map--conventional .field-map__orientation--top, .field-map--blind .field-map__orientation--top { top: 25%; color: #b33724; font-weight: 800; }
 .field-map--conventional .field-map__orientation--bottom, .field-map--blind .field-map__orientation--bottom { bottom: 14%; color: #b33724; font-weight: 800; }
-.field-map--conventional .field-map__pitch, .field-map--blind .field-map__pitch { top: 58%; height: 50%; }
-.field-map--blind .field-map__pitch { top: 50%; height: 62%; }
+.field-map--conventional .field-map__pitch, .field-map--blind .field-map__pitch { top: 50%; height: 30%; }
 .field-map__orientation span { color: var(--teal-deep); font-size: 14px; }
 .field-map__pitch { z-index: 1; position: absolute; left: 50%; top: 50%; width: 12%; min-width: 46px; height: 61%; transform: translate(-50%, -50%); background: #d5a871; border: 1px solid rgba(16,40,43,.18); display: flex; align-items: center; justify-content: center; }
 .pitch-strip { height: 92%; width: 44%; border-left: 1px dashed rgba(16,40,43,.25); border-right: 1px dashed rgba(16,40,43,.25); display: flex; justify-content: center; align-items: center; }
