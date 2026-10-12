@@ -101,20 +101,16 @@ h1 em { font-style: normal; color: var(--teal-deep); }
 .field-map__scoring-ring--top { top: 11%; }
 .field-map__scoring-ring--bottom { bottom: 11%; }
 .field-map--conventional .field-map__scoring-ring { display: none; }
-.field-map__orientation { position: absolute; z-index: 2; left: 50%; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; color: rgba(16,40,43,.72); }
-.field-map__orientation--top { top: 20px; }
-.field-map__orientation--bottom { bottom: 20px; }
-.field-map--conventional .field-map__orientation--top { top: 44%; }
-.field-map--conventional .field-map__orientation--bottom { bottom: 14px; }
-.field-map--conventional .field-map__orientation--top, .field-map--blind .field-map__orientation--top { top: 34%; color: #b33724; font-weight: 800; }
-.field-map--conventional .field-map__orientation--bottom, .field-map--blind .field-map__orientation--bottom { bottom: 29%; color: #b33724; font-weight: 800; }
 .field-map--conventional .field-map__pitch, .field-map--blind .field-map__pitch { top: 53%; height: 26%; }
-.field-map__orientation span { color: var(--teal-deep); font-size: 14px; }
 .field-map__pitch { z-index: 1; position: absolute; left: 50%; top: 50%; width: 12%; min-width: 46px; height: 61%; transform: translate(-50%, -50%); background: #d5a871; border: 1px solid rgba(16,40,43,.18); display: flex; align-items: center; justify-content: center; }
+.pitch-end-label { position: absolute; z-index: 4; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: .1em; color: #b33724; font-weight: 800; }
+.pitch-end-label span { color: var(--teal-deep); font-size: 12px; }
+.pitch-end-label--top { top: -23px; }
+.pitch-end-label--bottom { bottom: -23px; }
 .pitch-strip { height: 92%; width: 44%; border-left: 1px dashed rgba(16,40,43,.25); border-right: 1px dashed rgba(16,40,43,.25); display: flex; justify-content: center; align-items: center; }
 .pitch-strip span { font-family: 'DM Mono', monospace; font-size: 8px; color: rgba(16,40,43,.62); writing-mode: vertical-rl; transform: rotate(180deg); }
 .pitch-line { position: absolute; width: 90%; height: 4px; background: #f9f2da; border-top: 1px solid rgba(16,40,43,.25); border-bottom: 1px solid rgba(16,40,43,.25); left: 5%; }
-.pitch-line--top { top: 12%; } .pitch-line--bottom { bottom: 12%; }
+.pitch-line--bowler { top: 12%; } .pitch-line--batter { bottom: 12%; }
 .field-map__center-mark { position: absolute; z-index: 2; top: 50%; left: 50%; width: 12px; height: 12px; border: 2px solid rgba(16,40,43,.45); border-radius: 50%; transform: translate(-50%, -50%); }
 .field-markers { position: absolute; inset: 0; z-index: 3; }
 .field-marker { position: absolute; transform: translate(-50%, -50%); display: inline-flex; align-items: center; justify-content: center; gap: 5px; border: 2px solid rgba(16,40,43,.28); background: rgba(255,254,250,.94); color: var(--ink); border-radius: 99px; padding: 6px 8px; min-height: 44px; min-width: 52px; cursor: pointer; font-size: 9px; line-height: 1.1; font-weight: 700; white-space: nowrap; box-shadow: 0 4px 10px rgba(16,40,43,.09); transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
